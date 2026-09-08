@@ -1,4 +1,4 @@
-require('dotenv').config();
+try { process.loadEnvFile(); } catch {}
 const express = require('express');
 const cors = require('cors');
 const path = require('path');

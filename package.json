@@ -5,21 +5,26 @@
   "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "node --test"
+    "start": "node --env-file=.env src/index.js",
+    "dev": "node --watch --env-file=.env src/index.js",
+    "test": "node --test",
+    "preinstall": "npx only-allow pnpm"
   },
-  "keywords": ["hola-mundo", "supabase", "express", "baas", "logger"],
+  "keywords": [
+    "hola-mundo",
+    "supabase",
+    "express",
+    "baas",
+    "logger"
+  ],
   "dependencies": {
+    "@supabase/supabase-js": "^2.115.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "@supabase/supabase-js": "^2.43.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.3"
+    "express": "^5.2.1"
   },
   "engines": {
-    "node": ">=18.0.0"
-  }
+    "node": ">=20.6.0",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@12.3.4"
 }

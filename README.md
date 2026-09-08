@@ -6,10 +6,13 @@ Backend **Hola Mundo** minimalista con **Express + Supabase** que registra cada 
 
 ## ✨ Stack
 
-- **Backend:** Node.js 18+ + Express 4 + CORS
+- **Backend:** Node.js 18+ + Express 5 + CORS
 - **BaaS:** Supabase (Postgres, plan gratuito 500MB, sin tarjeta)
 - **Frontend demo:** `public/index.html` vanilla JS
 - **Deploy listo:** Vercel (via `vercel.json`), también Render / Railway / Fly
+- **Gestor:** pnpm exclusivamente (`pnpm-lock.yaml`, `packageManager: pnpm@11.23.0`)
+
+> ⚠️ Este proyecto usa **pnpm exclusivamente**. No uses `npm`/`yarn`/`bun`. Ver `AGENTS.md`.
 
 ## 📁 Estructura
 
@@ -30,7 +33,7 @@ hola-mundo-beacon/
 ### 1. Clonar e instalar
 ```bash
 cd hola-mundo-beacon
-npm install
+pnpm install --frozen-lockfile
 ```
 
 ### 2. Configurar Supabase
@@ -59,9 +62,9 @@ PORT=3000
 ### 3. Correr local
 
 ```bash
-npm run dev   # con nodemon (auto-reload)
+pnpm dev   # con node --watch (auto-reload nativo)
 # o
-npm start
+pnpm start
 ```
 
 Abre http://localhost:3000
@@ -105,16 +108,16 @@ curl -X POST http://localhost:3000/api/log \
 ## ☁️ Deploy a Vercel (gratuito)
 
 ```bash
-npm i -g vercel
+pnpm dlx vercel
 vercel
 # Configura env vars en Vercel Dashboard > Settings > Environment Variables:
 # SUPABASE_URL, SUPABASE_ANON_KEY
 vercel --prod
 ```
 
-O conecta tu repo GitHub a Vercel (import project) y añade las env vars.
+O conecta tu repo GitHub a Vercel (import project) y añade las env vars. Vercel detecta `pnpm-lock.yaml` y usa `pnpm install --frozen-lockfile` (ver `vercel.json:installCommand`).
 
-**Otros deploys gratuitos:** Render (Web Service), Railway, Fly.io — mismo código, solo `npm start`.
+**Otros deploys gratuitos:** Render (Web Service), Railway, Fly.io — mismo código, solo `pnpm start`.
 
 ## 🗄️ Tabla Supabase
 
@@ -143,7 +146,7 @@ El proyecto funciona sin `.env` en modo mock. Los tests del `src/index.js:55` ve
 ## 📝 Siguiente paso
 
 1. Configura tu `.env` con los datos de tu proyecto Supabase ya creado
-2. `npm run dev` y haz `curl http://localhost:3000/api/hello`
+2. `pnpm dev` y haz `curl http://localhost:3000/api/hello`
 3. Verifica en Supabase que aparece el log
 
 ¡Listo! Ya tienes Hola Mundo con logging persistente gratuito.
