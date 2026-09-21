@@ -8,7 +8,7 @@
     "start": "node --env-file=.env src/index.js",
     "dev": "node --watch --env-file=.env src/index.js",
     "test": "node --test",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "pnpm dlx only-allow pnpm"
   },
   "keywords": [
     "hola-mundo",
@@ -18,9 +18,11 @@
     "logger"
   ],
   "dependencies": {
-    "@supabase/supabase-js": "^2.115.0",
-    "cors": "^2.8.5",
-    "express": "^5.2.1"
+    "@supabase/supabase-js": "2.116.0",
+    "cors": "2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "8.7.0",
+    "helmet": "8.3.0"
   },
   "engines": {
     "node": ">=20.6.0",

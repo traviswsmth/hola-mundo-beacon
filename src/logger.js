@@ -32,14 +32,15 @@ async function logEvent(message, req = null) {
 
     if (error) {
       console.error('[Logger] Error al insertar en Supabase:', error.message);
-      return { success: false, error: error.message };
+      // Seguridad: mensaje genérico al cliente (detalle solo en servidor)
+      return { success: false, error: 'No se pudo registrar el log' };
     }
 
     console.log(`[Logger] Log insertado id=${data?.id} timestamp=${timestamp}`);
     return { success: true, id: data?.id };
   } catch (err) {
     console.error('[Logger] Excepción:', err.message);
-    return { success: false, error: err.message };
+    return { success: false, error: 'No se pudo registrar el log' };
   }
 }
 

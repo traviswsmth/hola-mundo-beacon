@@ -6,11 +6,12 @@ Backend **Hola Mundo** minimalista con **Express + Supabase** que registra cada 
 
 ## ✨ Stack
 
-- **Backend:** Node.js 18+ + Express 5 + CORS
+- **Backend:** Node.js 20.6+ (probado en 24.x) + Express 5.2 + CORS + helmet + express-rate-limit
 - **BaaS:** Supabase (Postgres, plan gratuito 500MB, sin tarjeta)
 - **Frontend demo:** `public/index.html` vanilla JS
-- **Deploy listo:** Vercel (via `vercel.json`), también Render / Railway / Fly
-- **Gestor:** pnpm exclusivamente (`pnpm-lock.yaml`, `packageManager: pnpm@11.23.0`)
+- **Deploy listo:** Vercel Functions (`api/index.js` + `rewrites`), también Render / Railway / Fly
+- **Gestor:** pnpm 12 exclusivamente (`pnpm-lock.yaml`, `packageManager: pnpm@12.3.4`)
+- **Tests:** `node --test` (7 tests en modo mock, sin dependencias)
 
 > ⚠️ Este proyecto usa **pnpm exclusivamente**. No uses `npm`/`yarn`/`bun`. Ver `AGENTS.md`.
 
@@ -138,6 +139,16 @@ Timestamp se genera en **dos capas**: `new Date().toISOString()` en Node + `defa
 
 - Para demo se usan policies `allow insert/select = true` con `anon key` (ver `supabase.sql`).
 - En producción, usa `SUPABASE_SERVICE_ROLE_KEY` solo en el servidor (nunca expongas en frontend).
+
+### Buena práctica al pasar a prod: restringir CORS
+En local el servidor acepta cualquier origen (`cors()` abierto) para no romper pruebas
+desde otros puertos, `file://` o previews. Al desplegar, fija los orígenes permitidos:
+```bash
+# .env en producción (solo tus dominios, separados por coma)
+CORS_ORIGINS=https://tu-app.vercel.app,https://tudominio.com
+```
+Con `CORS_ORIGINS` definido, el servidor solo acepta `GET`/`POST` desde esa allowlist;
+sin la variable, queda abierto (modo dev). Nunca pongas `*` en producción.
 
 ## 🧪 Test local sin Supabase
 
